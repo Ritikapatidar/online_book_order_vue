@@ -1,16 +1,22 @@
-<script setup>
-import { ref } from 'vue';
-const props = defineProps(['book'])
-const emit = defineEmits(['addToCart'])
-const cartAddedBookes = ref([])
-let count = ref(0)
-function handleClick(title, stock) {
-  if (count.value < stock) {
-    count.value++;
-    cartAddedBookes.value = { title: title, stock: count.value }
-    emit('addToCart', cartAddedBookes.value)
-    console.log(cartAddedBookes.value);
-  }
+<script>
+export default {
+  data() {
+    return {
+      count: 0,
+      cartAddedBookes: []
+    }
+  },
+  props: ['book'],
+  emit: ['addToCart'],
+  methods: {
+    handleClick(title, stock) {
+      if (this.count < stock) {
+        this.count++;
+        this.cartAddedBookes = { title: title, stock: this.count }
+        this.$emit('addToCart', this.cartAddedBookes) 
+      }
+    }
+  },
 }
 </script>
 <template>
@@ -32,7 +38,7 @@ function handleClick(title, stock) {
       <button type="button" :class="count == book.stock ? 'cursor-not-allowed' : 'bg-green-600'"
         :disabled="count == book.status ? true : false" class="inline-block rounded text-white bg-green-600 p-2 mt-2"
         @click="handleClick(book.title, book.stock)">
-        Add To Cart
+        Button
       </button>
     </div>
   </div>

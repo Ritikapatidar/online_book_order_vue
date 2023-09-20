@@ -1,10 +1,21 @@
-<script setup>
+<script>
 import BookItem from './components/BookItem.vue'
 import CartBooks from './components/CartBooks.vue'
 import info from './components/data.json'
 import { ref } from 'vue';
 const cartItems = ref([])
 
+export default {
+  data(){
+    return{
+      cartItems:[],
+      info
+    }
+  },
+  components:{
+    BookItem, CartBooks
+  }
+}
 </script>
 <template>
   <div class="container mx-auto my-4">
